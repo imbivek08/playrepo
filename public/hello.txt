@@ -1,0 +1,4 @@
+hey this we are learning to use git 
+and github in effective way so that we can have 
+better understanding of the code we push to 
+this version control
