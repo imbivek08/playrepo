@@ -1,13 +1,52 @@
+# name: learn-github-actions
+# run-name: ${{ github.actor }} is learning GitHub Actions
+# on: [push]
+# jobs:
+#   check-bats-version:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v4
+#     - uses: actions/setup-node@v4
+#       with:
+#         node-version: '20'
+#     - run: npm install -g bats
+#     - run: bats -v
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
+
 on: [push]
+
 jobs:
-  check-bats-version:
+  build-and-run-docker:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    - run: npm install -g bats
-    - run: bats -v
+    # Step 1: Check out the repository
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Step 2: Set up Docker Buildx
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    # Step 3: Build the Docker image
+    - name: Build Docker image
+      run: |
+        docker build -t express-hello-world:latest .
+
+    # Step 4: Run the Docker container
+    - name: Run Docker container
+      run: |
+        docker run -d -p 3000:3000 --name express-hello-world-container express-hello-world:latest
+
+    # Step 5: Test if the container is running by making a request to localhost
+    - name: Test Docker container
+      run: |
+        sleep 10 # Wait for the container to start
+        curl http://localhost:3000
+
+    # Step 6: Stop and remove the container after testing
+    - name: Clean up Docker container
+      run: |
+        docker stop express-hello-world-container
+        docker rm express-hello-world-container
