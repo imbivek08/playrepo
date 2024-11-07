@@ -1,14 +1,15 @@
 pipeline {
     agent {
-        docker {
-            image 'docker:latest'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
+        any
+        // docker {
+        //     image 'docker:latest'
+        //     args '-v /var/run/docker.sock:/var/run/docker.sock'
+        // }
     }
 
-    environment {
-        DOCKER_CONFIG = "${env.WORKSPACE}/.docker" // Set Docker config to workspace
-    }
+    // environment {
+    //     DOCKER_CONFIG = "${env.WORKSPACE}/.docker" // Set Docker config to workspace
+    // }
 
     stages {
         stage('Clone Repository') {
