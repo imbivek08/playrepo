@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run Tests
-      uses: echo "running the test"
+      run: echo "running the test"
     - name: Build Dev Docker Image
-      uses: echo "docker image build"
+      run: echo "docker image build"
