@@ -1,0 +1,17 @@
+# develop.yaml
+name: Development Pipeline
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    types: [ opened, synchronize ]
+    branches: [ develop ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run Tests
+      run: echo "running the test"
+    - name: Build Dev Docker Image
+      run: echo "docker image build"

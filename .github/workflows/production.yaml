@@ -1,0 +1,18 @@
+# main.yaml
+name: Production Pipeline
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [ closed ]
+    branches: [ main ]
+
+jobs:
+  deploy-prod:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build and Deploy to Production
+      run: echo "docker build"
+    - name: Build and Push Docker Image
+      run: echo "push the artifact"
